@@ -98,6 +98,22 @@ Coze Plugin 允許通過導入 JSON 或 YAML 文件來定義 API 並創建插件
 - 多個 API 同時導入時需共享相同的 base URL
 - 需遵守相關隱私法規和 Coze 用戶協議
 - 發布到商店可增加插件的可見性和使用範圍
+- 設置 GAS（Google Apps Script）URL 時的特殊注意事項：
+  1. 在 YAML/JSON 檔案中定義 URL 時，需要移除末尾的 `/exec`
+  2. 導入後 Coze 會自動在 URL 後添加 `/`
+  3. 在 Tool path 欄位中手動添加 `exec`
+  4. 最終 URL 格式應為：`https://script.google.com/macros/s/[SCRIPT_ID]/exec`
+
+例如，對於 GAS URL：
+```yaml
+# YAML 檔案中的設置
+servers:
+  - url: https://script.google.com/macros/s/YOUR_SCRIPT_ID
+    description: GAS API 服務器
+
+# 最終在 Tool path 中的完整 URL
+# https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
+```
 
 ## 最佳實踐
 1. 使用清晰易懂的插件名稱
